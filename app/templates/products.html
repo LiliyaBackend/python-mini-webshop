@@ -1,1 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Товары</h1>
 
+<div class="products">
+
+    {% for product in products %}
+    <div class="product-card">
+        <img src="/static/images/{{ product.image }}" width="150">
+        <h3>{{ product.name }}</h3>
+        <p>Цена: {{ product.price }} грн</p>
+        <form action="/cart/add/{{ product.id }}" method="post">
+            <button type="submit">Добавить в корзину</button>
+        </form>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
