@@ -1,1 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Доставка и Оплата</h1>
 
+<form action="/checkout" method="post">
+
+    <label>Имя:</label>
+    <input type="text" name="name" required>
+    <br>
+
+    <label>Адрес:</label>
+    <input type="text" name="address" required>
+    <br>
+
+    <label>Способ оплаты:</label>
+    <select name="payment" required>
+        <option>Карта</option>
+        <option>Наличные</option>
+    </select>
+
+    <br><br>
+    <button type="submit">Подтвердить заказ</button>
+</form>
+
+{% endblock %}
