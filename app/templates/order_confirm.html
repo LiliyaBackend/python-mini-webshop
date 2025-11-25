@@ -1,1 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Заказ подтверждён!</h1>
 
+<p><b>Имя:</b> {{ order.name }}</p>
+<p><b>Адрес:</b> {{ order.address }}</p>
+<p><b>Оплата:</b> {{ order.payment }}</p>
+
+<h3>Товары:</h3>
+<ul>
+{% for item in order.items %}
+    <li>{{ item.name }} — {{ item.price }} грн</li>
+{% endfor %}
+</ul>
+
+<p><b>Итого:</b> {{ order.total }} грн</p>
+
+{% endblock %}
