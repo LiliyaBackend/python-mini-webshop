@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Корзина</h1>
+
+{% if cart %}
+<ul>
+    {% for item in cart %}
+    <li>
+        {{ item.name }} — {{ item.price }} грн
+        <form action="/cart/remove/{{ item.id }}" method="post" style="display:inline;">
+            <button>Удалить</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+<p><b>Итого:</b> {{ total }} грн</p>
+
+<a href="/checkout">Перейти к оформлению</a>
+
+{% else %}
+<p>Корзина пуста.</p>
+{% endif %}
+
+{% endblock %}
