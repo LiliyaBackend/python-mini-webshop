@@ -27,6 +27,15 @@ Base.metadata.create_all(bind=engine)
 with SessionLocal() as db:
     crud.create_default_products(db)
 
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+
+app = FastAPI()
+
+templates = Jinja2Templates(directory="app/templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 @app.get("/")
-def index(request):
-    return app.templates.TemplateResponse("index.html", {"request": request})
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
