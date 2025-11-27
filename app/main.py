@@ -1,23 +1,17 @@
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
-# База данных и CRUD
 from .database import Base, engine, SessionLocal
 from . import crud
-
-# Роутеры
 from .routers import products, checkout, users
 from . import auth, cart, orders
 
-# ───────────────────────────────────────────────
+app = FastAPI()
 
-app = FastAPI(title="Simple Shop")
-
-# Подключаем путь к статике
+# Подключаем статику
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Подключаем шаблоны
+# Шаблоны
 templates = Jinja2Templates(directory="app/templates")
 
 # Подключаем роутеры
@@ -28,14 +22,12 @@ app.include_router(auth.router)
 app.include_router(cart.router)
 app.include_router(orders.router)
 
-# ───────────────────────────────────────────────
-# Создаём таблицы и добавляем дефолтные товары
+# Создаем таблицы и добавляем товары
 Base.metadata.create_all(bind=engine)
-
 with SessionLocal() as db:
     crud.create_default_products(db)
 
-# ───────────────────────────────────────────────
 # Главная страница
 @app.get("/")
-async def index(re
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
