@@ -9,7 +9,12 @@
         <img src="/static/images/{{ product.image }}" width="150">
         <h3>{{ product.name }}</h3>
         <p>Цена: {{ product.price }} грн</p>
-        <form action="/cart/add/{{ product.id }}" method="post">
+        <!-- Исправленная форма -->
+        <form action="/cart/add" method="post">
+            <!-- Передаём название товара -->
+            <input type="hidden" name="product_name" value="{{ product.name }}">
+            <!-- Количество -->
+            <input type="number" name="quantity" value="1" min="1">
             <button type="submit">Добавить в корзину</button>
         </form>
     </div>
