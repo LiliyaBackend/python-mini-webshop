@@ -3,8 +3,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from .database import Base, engine, SessionLocal
 from . import crud
-from .routers import products, checkout, users
-from . import auth, cart, orders
+from .routers import products, checkout, users, cart
+from . import auth, orders
 
 app = FastAPI()
 
@@ -13,6 +13,9 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Шаблоны
 templates = Jinja2Templates(directory="app/templates")
+
+# Добавляем templates в объект приложения
+app.templates = templates
 
 # Подключаем роутеры
 app.include_router(products.router)
